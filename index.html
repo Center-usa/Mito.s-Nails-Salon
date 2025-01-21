@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration</title>
+    <style>
+        /* تحسين التنسيق باستخدام ألوان وواجهات حديثة */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* تصميم الحاوية الرئيسية */
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* تنسيق الحقول */
+        input, button {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input:focus, button:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        input[type="text"], input[type="email"] {
+            background-color: #f9f9f9;
+        }
+
+        /* تنسيق الأزرار */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* تنسيق الرسالة بعد الإرسال */
+        .message {
+            color: #4CAF50;
+            font-size: 1rem;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        /* تنسيق الروابط */
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mito’s Nails Salon</h1>
+
+        <!-- نموذج التسجيل -->
+        <input type="text" id="customerName" placeholder="Customer Name" />
+        <input type="text" id="customerPhone" placeholder="Phone Number" />
+        <input type="text" id="customerAddress" placeholder="Address" />
+        <input type="email" id="customerEmail" placeholder="Email" />
+
+        <button onclick="submitCustomerData()">Submit</button>
+
+        <!-- رسالة التأكيد -->
+        <div class="message" id="confirmationMessage"></div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script>
+        // تهيئة EmailJS باستخدام User ID الخاص بك
+        emailjs.init("xx1V8hwwy6ZtGHr8Q"); // استبدل هذا بـ User ID الخاص بك من EmailJS
+
+        // دالة لإرسال بيانات العميل
+        function submitCustomerData() {
+            const name = document.getElementById("customerName").value;
+            const phone = document.getElementById("customerPhone").value;
+            const address = document.getElementById("customerAddress").value;
+            const email = document.getElementById("customerEmail").value;
+
+            if (name && phone && address && email) {
+                // إرسال البريد الإلكتروني للعميل باستخدام EmailJS
+                sendEmailNotification(email, name);
+
+                // عرض رسالة التأكيد
+                document.getElementById("confirmationMessage").innerText = "Your information has been successfully recorded!";
+
+                // مسح الحقول
+                document.getElementById("customerName").value = '';
+                document.getElementById("customerPhone").value = '';
+                document.getElementById("customerAddress").value = '';
+                document.getElementById("customerEmail").value = '';
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        // إرسال البريد الإلكتروني باستخدام EmailJS
+        function sendEmailNotification(customerEmail, customerName) {
+            const googleMapsLink = "https://maps.app.goo.gl/bZTbkWX2WaSziFZZ7";  // رابط Google Maps لتقييم الخدمة
+
+            const emailParams = {
+                to_email: customerEmail,  // التأكد من أن هنا يتم وضع بريد العميل
+                subject: "Customer Registration Confirmation",
+                customerName: customerName, // اسم العميل الذي تم إدخاله في النموذج
+                googleMapsLink: googleMapsLink // رابط Google Maps
+            };
+
+            // إرسال البريد الإلكتروني عبر خدمة EmailJS
+            emailjs.send("service_2u0ehp8", "template_rm7gbrk", emailParams)
+                .then(function(response) {
+                    console.log("Email sent successfully", response);
+                }, function(error) {
+                    console.error("Failed to send email", error);
+                });
+        }
+    </script>
+
+</body>
+</html>
