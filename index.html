@@ -125,6 +125,9 @@
                 // إرسال البريد الإلكتروني للعميل باستخدام EmailJS
                 sendEmailNotification(email, name);
 
+                // إرسال البيانات إلى Google Sheets عبر Google Apps Script
+                sendDataToGoogleSheets(name, phone, address, email);
+
                 // عرض رسالة التأكيد
                 document.getElementById("confirmationMessage").innerText = "Your information has been successfully recorded!";
 
@@ -156,6 +159,30 @@
                 }, function(error) {
                     console.error("Failed to send email", error);
                 });
+        }
+
+        // إرسال البيانات إلى Google Sheets عبر Google Apps Script
+        function sendDataToGoogleSheets(customerName, phone, address, email) {
+            const data = {
+                CustomerName: customerName,
+                PhoneNumber: phone,
+                Address: address,
+                Email: email
+            };
+
+            // إرسال البيانات إلى Google Apps Script عبر POST
+            fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyTBbBQMPjrfwOtL-QZSi0ooTAthLasVfHaUCx7_EY82mTgN5JGvLBSVoAb490QPdG3/exec', {
+                method: 'POST',
+                body: new URLSearchParams(data)
+            })
+            .then(response => response.text())
+            .then(responseText => {
+                console.log(responseText);  // يمكن إضافة الرسالة هنا إن كنت ترغب
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error while submitting your information. Please try again.');
+            });
         }
     </script>
 
