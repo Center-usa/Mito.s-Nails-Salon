@@ -108,41 +108,13 @@
         <div class="message" id="confirmationMessage"></div>
     </div>
 
-    <!-- تحميل مكتبة gapi.js بشكل صحيح -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
-        // تهيئة Google API
-        function initClient() {
-            gapi.client.init({
-                apiKey: 'YOUR_API_KEY', // هنا ضع API Key الخاص بك
-                clientId: '809583644030-7cs3kvoi1uutla0vs4qiv8k9anmu3tgh.apps.googleusercontent.com', // هنا ضع client ID الخاص بك
-                discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-                scope: 'https://www.googleapis.com/auth/spreadsheets',
-            }).then(function() {
-                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-            });
-        }
+        // تهيئة EmailJS باستخدام User ID الخاص بك
+        emailjs.init("xx1V8hwwy6ZtGHr8Q"); // استبدل هذا بـ User ID الخاص بك من EmailJS
 
-        // تحميل Google API بشكل صحيح
-        gapi.load('client:auth2', initClient);
-
-        function updateSigninStatus(isSignedIn) {
-            if (isSignedIn) {
-                document.getElementById('signinButton').style.display = 'none';
-            } else {
-                document.getElementById('signinButton').style.display = 'inline-block';
-            }
-        }
-
-        // دالة لتسجيل الدخول
-        function handleAuthClick() {
-            gapi.auth2.getAuthInstance().signIn();
-        }
-
-        // دالة لإرسال البيانات إلى Google Sheets
+        // دالة لإرسال بيانات العميل
         function submitCustomerData() {
             const name = document.getElementById("customerName").value;
             const phone = document.getElementById("customerPhone").value;
@@ -150,30 +122,12 @@
             const email = document.getElementById("customerEmail").value;
 
             if (name && phone && address && email) {
+                // إرسال البريد الإلكتروني للعميل باستخدام EmailJS
                 sendEmailNotification(email, name);
-
-                const values = [
-                    [name, phone, address, email]
-                ];
-
-                const body = {
-                    values: values
-                };
-
-                gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: '18YmRMDKz1_toXW8hiX82EeEaEMKBjJuUdOHTslpEp7c', // هنا ضع ID الخاص بشيت جوجل
-                    range: 'Sheet1!A1',
-                    valueInputOption: 'RAW',
-                    resource: body
-                }).then((response) => {
-                    console.log('Data added to Google Sheets: ', response);
-                }, (error) => {
-                    console.error('Error adding data to Google Sheets: ', error);
-                });
 
                 // عرض رسالة التأكيد
                 document.getElementById("confirmationMessage").innerText = "Your information has been successfully recorded!";
-                
+
                 // مسح الحقول
                 document.getElementById("customerName").value = '';
                 document.getElementById("customerPhone").value = '';
@@ -195,6 +149,7 @@
                 googleMapsLink: googleMapsLink // رابط Google Maps
             };
 
+            // إرسال البريد الإلكتروني عبر خدمة EmailJS
             emailjs.send("service_2u0ehp8", "template_rm7gbrk", emailParams)
                 .then(function(response) {
                     console.log("Email sent successfully", response);
