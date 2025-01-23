@@ -88,7 +88,6 @@
         a:hover {
             text-decoration: underline;
         }
-
     </style>
 </head>
 <body>
@@ -108,12 +107,7 @@
         <div class="message" id="confirmationMessage"></div>
     </div>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
     <script>
-        // تهيئة EmailJS باستخدام User ID الخاص بك
-        emailjs.init("xx1V8hwwy6ZtGHr8Q"); // استبدل هذا بـ User ID الخاص بك من EmailJS
-
         // دالة لإرسال بيانات العميل
         function submitCustomerData() {
             const name = document.getElementById("customerName").value;
@@ -122,13 +116,29 @@
             const email = document.getElementById("customerEmail").value;
 
             if (name && phone && address && email) {
-                // إرسال البريد الإلكتروني للعميل باستخدام EmailJS
-                sendEmailNotification(email, name);
+                // إرسال البيانات إلى Google Apps Script عبر Web App URL
+                fetch('https://script.google.com/macros/s/AKfycbyTBbBQMPjrfwOtL-QZSi0ooTAthLasVfHaUCx7_EY82mTgN5JGvLBSVoAb490QPdG3/exec', {  // استبدل بـ URL الخاص بـ Web App من Google Apps Script
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'  // تحديد نوع المحتوى كـ JSON
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        phone: phone,
+                        address: address,
+                        email: email
+                    })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);  // استجابة من Google Apps Script
+                    document.getElementById("confirmationMessage").innerText = "Your information has been successfully recorded!";
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
 
-                // عرض رسالة التأكيد
-                document.getElementById("confirmationMessage").innerText = "Your information has been successfully recorded!";
-
-                // مسح الحقول
+                // مسح الحقول بعد الإرسال
                 document.getElementById("customerName").value = '';
                 document.getElementById("customerPhone").value = '';
                 document.getElementById("customerAddress").value = '';
@@ -136,26 +146,6 @@
             } else {
                 alert("Please fill in all fields.");
             }
-        }
-
-        // إرسال البريد الإلكتروني باستخدام EmailJS
-        function sendEmailNotification(customerEmail, customerName) {
-            const googleMapsLink = "https://maps.app.goo.gl/bZTbkWX2WaSziFZZ7";  // رابط Google Maps لتقييم الخدمة
-
-            const emailParams = {
-                to_email: customerEmail,  // التأكد من أن هنا يتم وضع بريد العميل
-                subject: "Customer Registration Confirmation",
-                customerName: customerName, // اسم العميل الذي تم إدخاله في النموذج
-                googleMapsLink: googleMapsLink // رابط Google Maps
-            };
-
-            // إرسال البريد الإلكتروني عبر خدمة EmailJS
-            emailjs.send("service_2u0ehp8", "template_rm7gbrk", emailParams)
-                .then(function(response) {
-                    console.log("Email sent successfully", response);
-                }, function(error) {
-                    console.error("Failed to send email", error);
-                });
         }
     </script>
 
