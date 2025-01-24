@@ -4,90 +4,248 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* تحسين التنسيق باستخدام ألوان وواجهات حديثة */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f5e0e6, #f7d1cd, #f0b6c1);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
+            padding: 20px;
+            flex-direction: column;
+			color:#333333;
+			
         }
 
         .container {
-            width: 100%;
-            max-width: 450px;
             background-color: #ffffff;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            box-sizing: border-box;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            transition: transform 0.3s ease;
+			background:linear-gradient(to bottom left, #ffffff, #f7f0f6);
+        }
+
+        .container:hover {
+            transform: scale(1.02);
         }
 
         h1 {
             font-size: 2rem;
-            color: #4CAF50;
-            margin-bottom: 30px;
+            color:#4a4a4a;
+            text-align: center;
+            margin-bottom: 10px;
             font-weight: bold;
+            text-transform: uppercase;
+			text-shadow: 2px 2px 2px Grey;
+        }
+
+        .subheading {
+            font-size: 1.2rem;
+            color: #4a4a4a;
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* شريط العروض أو المزايا في الجزء العلوي */
+        .promo-bar {
+            background-color: #f4a261;
+            color: white;
+            font-size: 1rem;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         input, button {
             width: 100%;
             padding: 14px;
-            margin: 10px 0;
-            border-radius: 6px;
+            margin: 15px 0;
+            border-radius: 8px;
             border: 1px solid #ddd;
-            box-sizing: border-box;
             font-size: 1rem;
-        }
-
-        input:focus, button:focus {
-            border-color: #4CAF50;
             outline: none;
+            transition: all 0.3s ease;
         }
 
         input[type="text"], input[type="email"] {
-            background-color: #f9f9f9;
+            background-color: #fff0f0;
+			border-color:#f4a261;
+        }
+
+        input:focus, button:focus {
+            border-color: #f4a261;
+			background-color:#fff0f0;
+            box-shadow: 0 0 8px rgba(244, 166, 97, 0.6);
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
+            background-color: #f4a261;
+            color: #ffffff;
             font-weight: bold;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #e07b4d;
+            transform: scale(1.05);
         }
 
         .message {
-            color: #4CAF50;
+            text-align: center;
+            color: #155724;
             font-size: 1rem;
+            font-weight: bold;
             margin-top: 20px;
-            font-weight: bold;
         }
 
-        a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
+        .info {
+            font-size: 0.9rem;
+            color: #4a4a4a;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            font-size: 24px;
+            color: #4a4a4a;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #f4a261;
+        }
+
+        /* تخصيص الألوان الخاصة بأيقونات إنستغرام وجوجل */
+        .social-icons a.instagram i {
+            color: #E4405F;
+        }
+
+        .social-icons a.google i {
+            background: linear-gradient(45deg, #DB4437, #F4B400, #0F9D58, #4285F4);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* تخصيص تصميم حقول الخدمات */
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .service {
+            width: 22%; /* عرض 4 أيقونات في كل صف */
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .service i {
+            font-size: 2rem; /* تصغير حجم الأيقونات */
+            color: #f4a261;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .service p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .service:hover i {
+            color: #e07b4d;
+        }
+
+        @media (max-width: 600px) {
+            .services {
+                flex-direction: row; /* ترتيب الأيقونات بجانب بعضها في الصف */
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .service {
+                width: 22%; /* عرض 4 أيقونات في كل صف */
+                margin: 10px 0;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+				color:#4a4a4a;
+            }
+
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- شريط العروض أو المزايا -->
+        <div class="promo-bar">
+            "Refer us to one of your friends and you both can get 20% off together!"
+        </div>
+
+        <!-- إضافة خدمات الصالون -->
+        <div class="services">
+            <div class="service">
+                <i class="fas fa-hand-paper"></i>
+                <p>Manicure</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-shoe-prints"></i>
+                <p>Pedicure</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-cut"></i>
+                <p>Nail Clipping</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-tasks"></i>
+                <p>Spa Pedicure</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-smile"></i>
+                <p>Kids Manicure</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-spa"></i>
+                <p>Acrylic Overlays</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-brush"></i>
+                <p>Nail Polish</p>
+            </div>
+            <div class="service">
+                <i class="fas fa-user-tie"></i>
+                <p>Full Set</p>
+            </div>
+        </div>
+
         <h1>Mito’s Nails Salon</h1>
 
         <!-- نموذج التسجيل -->
@@ -100,28 +258,38 @@
 
         <!-- رسالة التأكيد -->
         <div class="message" id="confirmationMessage"></div>
+
+        <!-- النص تحت النموذج -->
+        <div class="info">
+            We look forward to offering you the best beauty experience. Feel free to contact us for any inquiries.
+        </div>
+
+        <!-- أيقونات السوشيال ميديا -->
+        <div class="social-icons">
+            <a href="https://www.instagram.com/mitonails22?igsh=dWc1ejg3YmJ6YjNs" target="_blank" class="instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.google.com/maps/place/Mito%E2%80%99s+Nails+Salon/@40.0813269,-74.9433339,17z/data=!4m8!3m7!1s0x89c14d4ff712ef99:0xe356f3d9cf92520e!8m2!3d40.0813269!4d-74.9433339!9m1!1b1!16s%2Fg%2F11t739jz64?authuser=0&entry=ttu&g_ep=EgoyMDI1MDEyMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="google">
+                <i class="fab fa-google"></i>
+            </a>
+        </div>
     </div>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
         // تهيئة EmailJS باستخدام User ID الخاص بك
-        emailjs.init("xx1V8hwwy6ZtGHr8Q"); // استبدل هذا بـ User ID الخاص بك من EmailJS
+        emailjs.init("xx1V8hwwy6ZtGHr8Q");
 
-        // الدالة لإرسال البيانات إلى Google Sheets
         const url = "https://script.google.com/macros/s/AKfycby-5hRF1SEIrSNeeEdD_yFOPfG1audcW1l6VynCNaoT3BdzesseBonRJp400VEgcnIKhA/exec";
 
-        // دالة لإرسال بيانات العميل
         function submitCustomerData() {
             const name = document.getElementById("customerName").value;
             const phone = document.getElementById("customerPhone").value;
             const address = document.getElementById("customerAddress").value;
             const email = document.getElementById("customerEmail").value;
 
-            console.log("Customer Data:", { name, phone, address, email }); // تأكيد أن البيانات يتم التقاطها بشكل صحيح
-
             if (name && phone && address && email) {
-                // إرسال البيانات إلى Google Sheets
                 const formData = new FormData();
                 formData.append("Name", name);
                 formData.append("Phone", phone);
@@ -134,18 +302,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Data submitted to Google Sheets successfully:", data);
-                    // إرسال البريد الإلكتروني بعد تسجيل البيانات بنجاح
                     sendEmailNotification(email, name);
-
-                    // عرض رسالة التأكيد
                     document.getElementById("confirmationMessage").innerText = "Your information has been successfully recorded!";
-
-                    // مسح الحقول
-                    document.getElementById("customerName").value = '';
-                    document.getElementById("customerPhone").value = '';
-                    document.getElementById("customerAddress").value = '';
-                    document.getElementById("customerEmail").value = '';
+                    resetForm();
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -156,20 +315,23 @@
             }
         }
 
-        // إرسال البريد الإلكتروني باستخدام EmailJS
+        function resetForm() {
+            document.getElementById("customerName").value = '';
+            document.getElementById("customerPhone").value = '';
+            document.getElementById("customerAddress").value = '';
+            document.getElementById("customerEmail").value = '';
+        }
+
         function sendEmailNotification(customerEmail, customerName) {
-            const googleMapsLink = "https://maps.app.goo.gl/bZTbkWX2WaSziFZZ7";  // رابط Google Maps لتقييم الخدمة
+            const googleMapsLink = "https://maps.app.goo.gl/bZTbkWX2WaSziFZZ7"; 
 
             const emailParams = {
-                to_email: customerEmail,  // إرسال البريد الإلكتروني للعميل
+                to_email: customerEmail,
                 subject: "Customer Registration Confirmation",
-                customerName: customerName, // اسم العميل الذي تم إدخاله في النموذج
-                googleMapsLink: googleMapsLink // رابط Google Maps
+                customerName: customerName,
+                googleMapsLink: googleMapsLink
             };
 
-            console.log("Sending email to:", customerEmail); // تأكيد عنوان البريد الإلكتروني الذي يتم إرساله إليه
-
-            // إرسال البريد الإلكتروني عبر خدمة EmailJS
             emailjs.send("service_2u0ehp8", "template_rm7gbrk", emailParams)
                 .then(function(response) {
                     console.log("Email sent successfully", response);
