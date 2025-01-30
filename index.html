@@ -277,6 +277,12 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.onselectstart = function() { return false; }; 
+            document.body.oncopy = function() { return false; }; 
+            document.body.oncontextmenu = function() { return false; }; 
+        });
         emailjs.init("xx1V8hwwy6ZtGHr8Q");
 
         const url = "https://script.google.com/macros/s/AKfycby-5hRF1SEIrSNeeEdD_yFOPfG1audcW1l6VynCNaoT3BdzesseBonRJp400VEgcnIKhA/exec";
