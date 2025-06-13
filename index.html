@@ -23,19 +23,19 @@
             align-items: center;
             flex-direction: column;
             color: #333333;
-            min-height: 100%; /* Ensure the page takes full height */
+            min-height: 100%;
         }
 
         .container {
             background-color: #ffffff;
-            padding: 20px; /* Increased padding to ensure space around the content */
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 450px;
             transition: transform 0.3s ease;
             background: linear-gradient(to bottom left, #ffffff, #f7f0f6);
-            overflow: auto; /* Allow scrolling if content overflows */
+            overflow: auto;
         }
 
         .container:hover {
@@ -74,7 +74,7 @@
         input, button {
             width: 100%;
             padding: 14px;
-            margin: 10px 0; /* Reduced margin between inputs */
+            margin: 10px 0;
             border-radius: 8px;
             border: 1px solid #ddd;
             font-size: 1rem;
@@ -211,7 +211,7 @@
 
     <div class="container">
         <div class="promo-bar">
-            "Refer us to one of your friends and you both can get 20% off together!"
+            Sign up today to receive more promotions and special discounts from us
         </div>
 
         <div class="services">
@@ -253,6 +253,7 @@
 
         <input type="text" id="customerName" placeholder="Customer Name" />
         <input type="text" id="customerPhone" placeholder="Phone Number" />
+        <input type="date" id="customerDOB" placeholder="Date of Birth" />
         <input type="text" id="customerAddress" placeholder="Address" />
         <input type="email" id="customerEmail" placeholder="Email" />
 
@@ -277,7 +278,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
-        
         document.addEventListener('DOMContentLoaded', function() {
             document.body.onselectstart = function() { return false; }; 
             document.body.oncopy = function() { return false; }; 
@@ -290,13 +290,15 @@
         function submitCustomerData() {
             const name = document.getElementById("customerName").value;
             const phone = document.getElementById("customerPhone").value;
+            const dob = document.getElementById("customerDOB").value;
             const address = document.getElementById("customerAddress").value;
             const email = document.getElementById("customerEmail").value;
 
-            if (name && phone && address && email) {
+            if (name && phone && dob && address && email) {
                 const formData = new FormData();
                 formData.append("Name", name);
                 formData.append("Phone", phone);
+                formData.append("DOB", dob);
                 formData.append("Address", address);
                 formData.append("Email", email);
 
@@ -322,6 +324,7 @@
         function resetForm() {
             document.getElementById("customerName").value = '';
             document.getElementById("customerPhone").value = '';
+            document.getElementById("customerDOB").value = '';
             document.getElementById("customerAddress").value = '';
             document.getElementById("customerEmail").value = '';
         }
