@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Registration</title>
+    <title>Mito’s Nails Salon</title>
+	<meta property="og:description" content="Enhance your natural glow with personalized beauty treatments tailored to you">
+    <meta property="og:image" content="https://center-usa.github.io/Mito.s-Nails-Salon/Mito.jpg">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -13,18 +17,27 @@
         }
 
         html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #f5e0e6, #f7d1cd, #f0b6c1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: #333333;
-            min-height: 100%;
+           
+	    width: 100%;
+	    height: 100%;
+	    overflow: hidden;
+	    font-family: 'Arial', sans-serif;
+	    background: url('Mitos.jpg') no-repeat center center fixed;
+	    background-size: cover;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    flex-direction: column;
+	    color: #333333;
+	    min-height: 100%;
+
         }
+		{
+  	    background-image: url('Mito-cover.jpg');
+ 	    background-size: cover;
+  	    background-position: center;
+  	    background-repeat: no-repeat;
+		}
 
         .container {
             background-color: #ffffff;
@@ -44,7 +57,7 @@
 
         h1 {
             font-size: 2rem;
-            color: #4a4a4a;
+            color: #e33a2b;
             text-align: center;
             margin-bottom: 10px;
             font-weight: bold;
@@ -61,7 +74,7 @@
         }
 
         .promo-bar {
-            background-color: #f4a261;
+            background-color: #e53a28;
             color: white;
             font-size: 1rem;
             padding: 10px;
@@ -84,17 +97,17 @@
 
         input[type="text"], input[type="email"] {
             background-color: #fff0f0;
-            border-color: #f4a261;
+            border-color: #e53a28;
         }
 
         input:focus, button:focus {
-            border-color: #f4a261;
+            border-color: #e53a28;
             background-color: #fff0f0;
             box-shadow: 0 0 8px rgba(244, 166, 97, 0.6);
         }
 
         button {
-            background-color: #f4a261;
+            background-color: #53d7ff;
             color: #ffffff;
             font-weight: bold;
             cursor: pointer;
@@ -102,7 +115,7 @@
         }
 
         button:hover {
-            background-color: #e07b4d;
+            background-color: #e53a28;
             transform: scale(1.05);
         }
 
@@ -164,7 +177,7 @@
 
         .service i {
             font-size: 2rem;
-            color: #f4a261;
+            color: #53d7ff;
             margin-bottom: 10px;
             transition: color 0.3s ease;
         }
@@ -175,7 +188,7 @@
         }
 
         .service:hover i {
-            color: #e07b4d;
+            color: #e53a28;
         }
 
         @media (max-width: 600px) {
@@ -254,7 +267,6 @@
         <input type="text" id="customerName" placeholder="Customer Name" />
         <input type="text" id="customerPhone" placeholder="Phone Number" />
         <input type="text" id="customerDOB" placeholder="Date of Birth" />
-        <input type="text" id="customerAddress" placeholder="Address" />
         <input type="email" id="customerEmail" placeholder="Email" />
 
         <button onclick="submitCustomerData()">Submit</button>
@@ -291,15 +303,13 @@
             const name = document.getElementById("customerName").value;
             const phone = document.getElementById("customerPhone").value;
             const dob = document.getElementById("customerDOB").value;
-            const address = document.getElementById("customerAddress").value;
             const email = document.getElementById("customerEmail").value;
 
-            if (name && phone && dob && address && email) {
+            if (name && phone && dob && email) {
                 const formData = new FormData();
                 formData.append("Name", name);
                 formData.append("Phone", phone);
                 formData.append("DOB", dob);
-                formData.append("Address", address);
                 formData.append("Email", email);
 
                 fetch(url, {
@@ -325,7 +335,6 @@
             document.getElementById("customerName").value = '';
             document.getElementById("customerPhone").value = '';
             document.getElementById("customerDOB").value = '';
-            document.getElementById("customerAddress").value = '';
             document.getElementById("customerEmail").value = '';
         }
 
